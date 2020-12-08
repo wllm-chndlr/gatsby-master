@@ -12,7 +12,7 @@ const PizzaGridStyles = styled.div`
 
 const PizzaStyles = styled.div`
     display: grid;
-    @supports not(grid-template-rows subgrid) {
+    @supports not (grid-template-rows: subgrid) {
         --rows: auto auto 1fr;
     }
     grid-template-rows: var(--rows, subgrid);
