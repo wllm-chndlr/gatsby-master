@@ -28,11 +28,44 @@ async function turnPizzasIntoPages({ graphql, actions }) {
                 slug: pizza.slug.current,
             }
         });
-
     });
+}
+
+async function turnToppingsIntoPages({ graphql, actions }) {
+    const toppingsTemplate = path.resolve('./src/pages/pizzas.js');
+
+    const { data } = await graphql(`
+        query {
+            toppings: allSanityTopping {
+                nodes {
+                    name
+                    id
+                }
+            }
+        }
+    `);
+
+    data.toppings.nodes.forEach(topping => {
+        actions.createPage({
+            path: `topping/${topping.name}`,
+            component: toppingsTemplate,
+            context: {
+                topping: topping.name,
+                // TODO regex for topping
+            }
+        })
+    })
+
 }
 
 export async function createPages(params) {
     // Create pages dynamically
-    await turnPizzasIntoPages(params);
+    // Wait for all promises to resolve
+    await Promise.all([
+        turnPizzasIntoPages(params),
+        turnToppingsIntoPages(params),
+    ]);
+    // 1. Pizzas
+    // 2. Toppings
+    // 3. Slicemasters
 }
