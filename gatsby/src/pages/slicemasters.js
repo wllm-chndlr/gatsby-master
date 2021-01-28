@@ -1,24 +1,58 @@
 import React from "react";
-import { graphql } from 'gatsby';
-import { Link } from "gatsby";
+import { graphql, Link } from 'gatsby';
+import Img from 'gatsby-image';
+import styled from 'styled-components';
+
+const SlicemasterGrid = styled.div`
+    display: grid;
+    grid-gap: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+`;
+
+const SlicemasterStyles = styled.div`
+    a {
+        text-decoration: none;
+    }
+    .gatsby-image-wrapper {
+        height: 400px;
+    }
+    h2 {
+        font-size: 4rem;
+        margin-bottom: -2rem;
+        position: relative;
+        text-align: center;
+        transform: rotate(-2deg);
+        z-index: 2;
+    }
+    .description {
+        background: var(--yellow);
+        margin: 2rem;
+        margin-top: -6rem;
+        padding: 1rem;
+        position: relative;
+        transform: rotate(1deg);
+        z-index: 2;
+    }
+`;
 
 export default function SlicemastersPage({ data }) {
     const slicemasters = data.slicemasters.nodes;
 
 	return (
         <>
-            <div>
+            <SlicemasterGrid>
                 {slicemasters.map(person => (
-                    <div>
+                    <SlicemasterStyles>
                         <Link to={`/slicemaster/${person.slug.current}`}>
                             <h2>
                                 <span className="mark">{person.name}</span>
                             </h2>
                         </Link>
-                    </div>
+                        <Img fluid={person.image.asset.fluid} />
+                        <p className="description">{person.description}</p>
+                    </SlicemasterStyles>
                 ))}
-            </div>
-
+            </SlicemasterGrid>
         </>
     )
 }
