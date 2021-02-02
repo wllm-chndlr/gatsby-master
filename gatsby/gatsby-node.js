@@ -112,7 +112,7 @@ async function turnSlicemastersIntoPages({ graphql, actions }) {
     Array.from({ length: pageCount }).forEach((_, i) => {
         actions.createPage({
             path: `/slicemasters/${i+1}`,
-            component: path.resolve('./src/pages.slicemasters.js'),
+            component: path.resolve('./src/pages/slicemasters.js'),
             context: {
                 skip: i * pageSize,
                 currentPage: i + 1,
