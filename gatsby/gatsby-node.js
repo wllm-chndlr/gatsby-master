@@ -56,7 +56,6 @@ async function turnToppingsIntoPages({ graphql, actions }) {
             }
         })
     })
-
 }
 
 async function fetchBeersAndTurnIntoNodes({ actions, createNodeId, createContentDigest}) {
@@ -127,10 +126,7 @@ export async function sourceNodes(params) {
     await Promise.all([
         fetchBeersAndTurnIntoNodes(params),
     ]);
-
-
 }
-
 
 export async function createPages(params) {
     // Create pages dynamically
@@ -140,7 +136,4 @@ export async function createPages(params) {
         turnToppingsIntoPages(params),
         turnSlicemastersIntoPages(params),
     ]);
-    // 1. Pizzas
-    // 2. Toppings
-    // 3. Slicemasters
 }
