@@ -11,6 +11,11 @@ const OrderStyles = styled.form`
         display: grid;
         gap: 1rem;
         align-content: flex-start;
+
+        &.order,
+        &.menu {
+            grid-column: span 1;
+        }
     }
 `;
 

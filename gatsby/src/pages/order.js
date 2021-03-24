@@ -4,6 +4,8 @@ import OrderStyles from "../styles/OrderStyles";
 import useForm from '../utils/useForm';
 import { graphql } from 'gatsby';
 import Img from 'gatsby-image';
+import calculatePizzaPrice from '../utils/calculatePizzaPrice';
+import formatMoney from '../utils/formatMoney';
 
 export default function OrderPage({ data }) {
     const { values, updateValue } = useForm({
@@ -35,7 +37,7 @@ export default function OrderPage({ data }) {
                         onChange={updateValue}
                     />
                 </fieldset>
-                <fieldset>
+                <fieldset className="menu">
                     <legend>Menu</legend>
 
                     {pizzas.map(pizza => (
@@ -46,12 +48,22 @@ export default function OrderPage({ data }) {
                                 height="50"
                                 width="50"
                             />
-                            <h2>{pizza.name}</h2>
+                            <div>
+                                <h2>{pizza.name}</h2>
+                            </div>
+                            <div>
+                                {['S', 'M', 'L'].map(size => (
+                                    <button type="button">
+                                        {size}
+                                        {formatMoney(calculatePizzaPrice(pizza.price, size))}
+                                    </button>
+                                ))}
+                            </div>
                         </div>
                     ))}
 
                 </fieldset>
-                <fieldset>
+                <fieldset className="order">
                     <legend>Order</legend>
                 </fieldset>
             </OrderStyles>
