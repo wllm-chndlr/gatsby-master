@@ -1,6 +1,7 @@
 import React from "react";
 import SEO from '../components/SEO';
 import OrderStyles from "../styles/OrderStyles";
+import MenuItemStyles from "../styles/MenuItemStyles";
 import useForm from '../utils/useForm';
 import { graphql } from 'gatsby';
 import Img from 'gatsby-image';
@@ -41,7 +42,7 @@ export default function OrderPage({ data }) {
                     <legend>Menu</legend>
 
                     {pizzas.map(pizza => (
-                        <div key={pizza.id}>
+                        <MenuItemStyles key={pizza.id}>
                             <Img
                                 alt={pizza.name}
                                 fluid={pizza.image.asset.fluid}
@@ -59,7 +60,7 @@ export default function OrderPage({ data }) {
                                     </button>
                                 ))}
                             </div>
-                        </div>
+                        </MenuItemStyles>
                     ))}
 
                 </fieldset>
