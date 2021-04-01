@@ -1,14 +1,18 @@
 import React from "react";
-import SEO from '../components/SEO';
-import OrderStyles from "../styles/OrderStyles";
-import MenuItemStyles from "../styles/MenuItemStyles";
-import useForm from '../utils/useForm';
 import { graphql } from 'gatsby';
 import Img from 'gatsby-image';
+
+import PizzaOrder from "../components/PizzaOrder";
+import SEO from '../components/SEO';
+
+import OrderStyles from "../styles/OrderStyles";
+import MenuItemStyles from "../styles/MenuItemStyles";
+
+import calculateOrderTotal from "../utils/calculateOrderTotal";
 import calculatePizzaPrice from '../utils/calculatePizzaPrice';
 import formatMoney from '../utils/formatMoney';
+import useForm from '../utils/useForm';
 import usePizza from '../utils/usePizza';
-import PizzaOrder from "../components/PizzaOrder";
 
 export default function OrderPage({ data }) {
     const pizzas = data.pizzas.nodes;
@@ -80,6 +84,13 @@ export default function OrderPage({ data }) {
                         removeFromOrder={removeFromOrder}
                         pizzas={pizzas}
                     />
+                </fieldset>
+
+                <fieldset>
+                    <h3>Your Total is {formatMoney(calculateOrderTotal(order, pizzas))}</h3>
+                    <button type="submit">
+                        Order Ahead!
+                    </button>
                 </fieldset>
             </OrderStyles>
         </>
