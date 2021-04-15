@@ -1,10 +1,13 @@
 import { useState, useContext } from 'react';
 import OrderContext from '../components/OrderContext';
+import calculateOrderTotal from './calculateOrderTotal';
+import formatMoney from './formatMoney';
 
-export default function usePizza({ pizzas, inputs }) {
-    // const [order, setOrder] = useState([]);
-
+export default function usePizza({ pizzas, values }) {
     const [order, setOrder] = useContext(OrderContext);
+    const [error, setError] = useState();
+    const [loading, setLoading] = useState(false);
+    const [message, setMessage] = useState('');
 
     function addToOrder(orderedPizza) {
         setOrder([...order, orderedPizza]);
@@ -19,10 +22,29 @@ export default function usePizza({ pizzas, inputs }) {
         ])
     }
 
+    async function submitOrder(e) {
+        e.preventDefault();
+
+        console.log(e);
+        setLoading(true);
+
+        const body = {
+            order: order,
+            total: formatMoney(calculateOrderTotal(order, pizzas)),
+            name: values.name,
+            email: values.email,
+        }
+        console.log(body);
+    }
+
     // TODO
     return {
         order,
         addToOrder,
         removeFromOrder,
+        error,
+        loading,
+        message,
+        submitOrder,
     }
 }
