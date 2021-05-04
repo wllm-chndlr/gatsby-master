@@ -1,5 +1,6 @@
 import { useState, useContext } from 'react';
 import OrderContext from '../components/OrderContext';
+import attachNamesAndPrices from './attachNamesAndPrices';
 import calculateOrderTotal from './calculateOrderTotal';
 import formatMoney from './formatMoney';
 
@@ -29,7 +30,7 @@ export default function usePizza({ pizzas, values }) {
         setLoading(true);
 
         const body = {
-            order: order,
+            order: attachNamesAndPrices(order, pizzas),
             total: formatMoney(calculateOrderTotal(order, pizzas)),
             name: values.name,
             email: values.email,
