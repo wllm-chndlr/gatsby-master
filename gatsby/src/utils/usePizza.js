@@ -18,8 +18,8 @@ export default function usePizza({ pizzas, values }) {
         setOrder([
             // everything before the item we want to remove
             ...order.slice(0, index),
-            ...order.slice(index + 1)
             // everything after the item we want to remove
+            ...order.slice(index + 1)
         ])
     }
 
@@ -35,8 +35,22 @@ export default function usePizza({ pizzas, values }) {
             name: values.name,
             email: values.email,
         }
+
         console.log(body);
+
+        const res = await fetch(`${process.ENV.GATSBY_SERVERLESS_BASE}/placeOrder`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body),
+        });
+
+        const text = JSON.parse(await res.text());
+
+
     }
+
 
     // TODO
     return {
