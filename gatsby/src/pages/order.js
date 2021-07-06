@@ -33,6 +33,10 @@ export default function OrderPage({ data }) {
         values,
     });
 
+    if (message) {
+        return <p>{message}</p>;
+    }
+
 	return (
         <>
             <SEO title="Order a pizza!" />
@@ -102,6 +106,9 @@ export default function OrderPage({ data }) {
 
                 <fieldset>
                     <h3>Your Total is {formatMoney(calculateOrderTotal(order, pizzas))}</h3>
+                    <div>
+                        {error ? <p>Error: {error}</p> : ''}
+                    </div>
                     <button
                         type="submit"
                         disabled={loading}
