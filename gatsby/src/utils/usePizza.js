@@ -40,7 +40,7 @@ export default function usePizza({ pizzas, values }) {
 
         console.log(body);
 
-        const res = await fetch(`${process.ENV.GATSBY_SERVERLESS_BASE}/placeOrder`, {
+        const res = await fetch(`${process.env.GATSBY_SERVERLESS_BASE}/placeOrder`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

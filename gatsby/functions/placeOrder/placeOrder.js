@@ -28,7 +28,13 @@ const transporter = nodemailer.createTransport({
         user: process.env.MAIL_USER,
         pass: process.env.MAIL_PASS,
     }
-})
+});
+
+function wait(ms = 0) {
+    return new Promise((resolve, reject) => {
+        setTimeout(resolve, ms);
+    })
+};
 
 exports.handler = async (event, context) => {
     const body = JSON.parse(event.body);
@@ -43,6 +49,13 @@ exports.handler = async (event, context) => {
         }
     }
 
+    // make sure they have at least one pizza in the order
+    if (!body.order.length) {
+        return {
+            statusCode: 400,
+            body: JSON.stringify({ message: `Why would you order nothing?!` }),
+        }
+    }
 
     const info = await transporter.sendMail({
         from: 'Slicks Slices <slick@example.com>',
