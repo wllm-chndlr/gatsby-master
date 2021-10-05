@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 
-// const gql = String.raw();
 const deets = `
     name
     _id
