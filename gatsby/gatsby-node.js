@@ -134,7 +134,7 @@ async function turnSlicemastersIntoPages({ graphql, actions }) {
 export async function sourceNodes(params) {
     // fetch a list of beers and source them into our gatsby api
     await Promise.all([
-        fetchBeersAndTurnIntoNodes(params),
+        // fetchBeersAndTurnIntoNodes(params),
     ]);
 }
 
