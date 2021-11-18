@@ -11,24 +11,24 @@ const deets = `
             }
         }
     }
-`
+`;
 
 export default function useLatestData() {
-    // hot slices
-    const [hotSlices, setHotSlices] = useState();
+  // hot slices
+  const [hotSlices, setHotSlices] = useState();
 
-    // slicemasters
-    const [slicemasters, setSlicemasters] = useState();
+  // slicemasters
+  const [slicemasters, setSlicemasters] = useState();
 
-    useEffect(function() {
-        // when the component loads, fetch the data
-        fetch(process.env.GATSBY_GRAPHQL_ENDPOINT, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                query: `
+  useEffect(function () {
+    // when the component loads, fetch the data
+    fetch(process.env.GATSBY_GRAPHQL_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        query: `
                     query {
                         StoreSettings(id: "downtown") {
                             name
@@ -40,21 +40,21 @@ export default function useLatestData() {
                             }
                         }
                     }
-                `
-            })
-        })
-            .then(res => res.json())
-            .then(res => {
-                setHotSlices(res.data.StoreSettings.hotSlices);
-                setSlicemasters(res.data.StoreSettings.slicemaster);
-            })
-            .catch(err => {
-                console.log(err);
-            });
-    }, []);
+                `,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setHotSlices(res.data.StoreSettings.hotSlices);
+        setSlicemasters(res.data.StoreSettings.slicemaster);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
-    return {
-        hotSlices,
-        slicemasters,
-    }
+  return {
+    hotSlices,
+    slicemasters,
+  };
 }
